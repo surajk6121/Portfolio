@@ -174,7 +174,44 @@ $( document ).ready(function() {
     });
 
   }
+/////////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////////////////////
+    
+/*const buttonRight = document.getElementById('slideRight');
+    const buttonLeft = document.getElementById('slideLeft');
 
+    buttonRight.onclick = function () {
+      document.getElementsByClassName('timeline').scrollLeft += 20;
+    };
+    buttonLeft.onclick = function () {
+      document.getElementsByClassName('timeline').scrollLeft -= 20;
+    };*/
+    /////////////////////////////////////////
+  // ADD SWIPE SUPPORT FOR TOUCH DEVICES
+  function setSwipeFn(tl, prev, next) {
+    const hammer = new Hammer(tl);
+    hammer.on("swipeleft", () => next.click());
+    hammer.on("swiperight", () => prev.click());
+  }
+
+  // ADD BASIC KEYBOARD FUNCTIONALITY
+  function setKeyboardFn(prev, next) {
+    document.addEventListener("keydown", (e) => {
+      if ((e.which === 37) || (e.which === 39)) {
+        const timelineOfTop = timeline.offsetTop;
+        const y = window.pageYOffset;
+        if (timelineOfTop !== y) {
+          window.scrollTo(0, timelineOfTop);
+        }
+        if (e.which === 37) {
+          prev.click();
+        } else if (e.which === 39) {
+          next.click();
+        }
+      }
+    });
+  }
+////////////////////////////////////////////////////////////////////////////////////////
   function workSlider() {
 
     $('.slider--prev, .slider--next').click(function() {
